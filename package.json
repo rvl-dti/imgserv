@@ -1,0 +1,20 @@
+{
+  "name": "imgserv",
+  "version": "1.0.0",
+  "description": "server that takes url with image, download it, convert to jpg and return permalink",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "yyk@mail.ru",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "express": "^4.17.1",
+    "image-downloader": "^3.4.2",
+    "image-size": "^0.7.4",
+    "jimp": "^0.6.4",
+    "md5": "^2.2.1",
+    "webp-converter": "^2.2.2"
+  }
+}
