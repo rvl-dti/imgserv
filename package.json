@@ -16,5 +16,9 @@
     "jimp": "^0.6.4",
     "md5": "^2.2.1",
     "webp-converter": "^2.2.2"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.1",
+    "eslint-config-google": "^0.13.0"
   }
 }
