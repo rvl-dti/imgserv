@@ -1,8 +1,30 @@
 const express = require('express');
+const path = require('path');
+const downloader = require('./downloader');
 const app = express();
 const port = 3000;
+
+var dir = path.join(__dirname, 'public');
+
+app.use(express.static(dir));
 app.get('/', (request, response) => {
-  response.send((request.query));
+  var q, url
+  q = request.query;
+  console.log(q);
+  url = decodeURIComponent(q.url); 
+  console.log('url:' + (url == 'undefined'));
+  if (url !== 'undefined'){
+    downloader.fetch(url,  './downloads', './public')
+    .then(fileName=>{
+      console.log(fileName)
+      response.send(fileName);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  } else {
+    response.send('hello');
+  }
 });
 
 app.listen(port, (err) => {
