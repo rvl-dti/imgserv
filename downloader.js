@@ -50,7 +50,7 @@ const fetch = (url, dFolder, pFolder) => {
             fullName = dFolder + '/' + fileName;
             return downloadImage(url, fullName);
           } else {
-            reject(new Error({message: 'not an image', code: 'NOTANIMAGE'}));
+            throw new Error('not an image');
           }
         })
         .then((fullName) => {
