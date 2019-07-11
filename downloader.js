@@ -137,23 +137,5 @@ const convertToJpg = (arg) => {
   });
 };
 
-urls = [
-  'https://www.pwc.com.tr/tr/sektorler/Perakende-T%C3%BCketici/kuresel-tuketicileri-tanima-arastirmasi/kuresel-tuketici-gorusleri-arastirmasi-info-5en.png',
-  'https://cdn-images-1.medium.com/max/800/0*QIEMpq1aAc4mb_oq',
-  'https://www.capgemini.com/wp-content/uploads/2014/09/jerome-buvat-new-pix-2-4.jpg?w=960',
-  'https://img.etimg.com/thumb/height-480,width-640,msid-69886419,imgsize-201874/growth-bccl.jpg',
-  'http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/images/hdfsarchitecture.png',
-  'https://cdn-images-1.medium.com/max/800/1*WyTv5S6b8fmOG6aBrZyiHw.jpeg',
-  'https://joviam.com/wp-content/uploads/2016/05/BigDataTools-e1468035485508.png',
-  'https://image.slidesharecdn.com/datascienceinfographicbiginsight-141010162408-conversion-gate02/95/data-science-infographic-1-638.jpg?cb=1412963028',
-
-];
-
-urls.forEach((url) => {
-  fetch(url, './downloads', './public')
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-});
-
 exports.fetch = fetch;
 exports.getMimeType = getMimeType;
