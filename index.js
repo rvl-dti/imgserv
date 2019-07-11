@@ -16,11 +16,14 @@ app.get('/', (request, response) => {
   if (url !== 'undefined'){
     downloader.fetch(url,  './downloads', './public')
     .then(fileName=>{
+      const result = JSON.stringify({status:'ok', data:fileName});
       console.log(fileName)
-      response.send(fileName);
+      response.send(result);
     })
     .catch((err) => {
+      const result = JSON.stringify({status:'fail', data:err.message});
       console.log(err);
+      response.send(result);
     });
   } else {
     response.send('hello');
