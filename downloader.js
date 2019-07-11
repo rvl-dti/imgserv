@@ -89,8 +89,7 @@ const resizeImage = (fullName, width) => {
       jimp.read(fullName)
           .then((x) => {
             x.resize(maxWidth, jimp.AUTO)
-                .write(fullName);
-            resolve(fullName);
+                .write(fullName, () => resolve(fullName));
           })
           .catch((err) => reject(err));
     } else {
@@ -125,7 +124,7 @@ const convertToJpg = (arg) => {
           } else {
             res
                 .quality(100) // set JPEG quality
-                .writeAsync(outputFile, () => {
+                .write(outputFile, () => {
                   resolve(outputFile);
                 });
           }
