@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const downloader = require('./downloader');
+const logger = require('./log.js');
 const app = express();
 const port = 3000;
 
@@ -10,18 +11,17 @@ app.use(express.static(dir));
 app.get('/', (request, response) => {
   var q, url
   q = request.query;
-  console.log(q);
   if (typeof q.url !== 'undefined'){
     url = decodeURIComponent(q.url);
     downloader.fetch(url,  './downloads', './public')
     .then(fileName=>{
       const result = JSON.stringify({status:'ok', data:fileName});
-      console.log(fileName)
+      logger.info(fileName + ' succesfully published')
       response.send(result);
     })
     .catch((err) => {
       const result = JSON.stringify({status:'fail', data:err.message});
-      console.log(err);
+      logger.error(err.message);
       response.send(result);
     });
   } else {

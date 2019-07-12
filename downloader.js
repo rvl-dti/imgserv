@@ -1,3 +1,4 @@
+const logger = require('winston');
 const request = require('request');
 const download = require('image-downloader');
 const md5 = require('md5');
@@ -14,7 +15,7 @@ const downloadImage = (url, dest) => {
     download.image({rejectUnauthorized: false, url, dest,
       headers: {'User-Agent': userAgent}})
         .then(({filename, image}) => {
-          console.log('File saved to', filename);
+          logger.info('File saved to ' +  filename);
           resolve(filename);
         })
         .catch((err) => {
@@ -27,13 +28,13 @@ const getMimeType = (url) => {
   return new Promise((resolve, reject) => {
     const options = {url, headers: {'User-Agent': userAgent},
       rejectUnauthorized: false};
-    console.log(url);
+    logger.info('checking mime type: ' + url);
     request(options, function(err, res, body) {
       if (err) {
         reject(err);
       } else {
         const mimeType = res.headers['content-type'];
-        console.log(mimeType);
+        logger.info(mimeType);
         resolve({url, mimeType});
       }
     });
@@ -54,12 +55,15 @@ const fetch = (url, dFolder, pFolder) => {
           }
         })
         .then((fullName) => {
+          logger.info('converting to jpg...');
           return convertToJpg({fullName, jpgFolder: pFolder});
         })
         .then((fullName) => {
+          logger.info('getting image size...');
           return getSize(fullName);
         })
         .then((res) => {
+          logger.info('image width: ' + res.width + '. Maybe resizing...');
           return resizeImage(res.fullName, res.width);
         })
         .then((fullName) => {

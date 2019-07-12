@@ -15,7 +15,8 @@
     "image-size": "^0.7.4",
     "jimp": "^0.6.4",
     "md5": "^2.2.1",
-    "webp-converter": "^2.2.2"
+    "webp-converter": "^2.2.2",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "eslint": "^6.0.1",
