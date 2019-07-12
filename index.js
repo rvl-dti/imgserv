@@ -11,9 +11,8 @@ app.get('/', (request, response) => {
   var q, url
   q = request.query;
   console.log(q);
-  url = decodeURIComponent(q.url); 
-  console.log('url:' + (url == 'undefined'));
-  if (url !== 'undefined'){
+  if (typeof q.url !== 'undefined'){
+    url = decodeURIComponent(q.url);
     downloader.fetch(url,  './downloads', './public')
     .then(fileName=>{
       const result = JSON.stringify({status:'ok', data:fileName});
