@@ -5,25 +5,25 @@ const logger = require('./log.js');
 const app = express();
 const port = 3000;
 
-var dir = path.join(__dirname, 'public');
+const dir = path.join(__dirname, 'public');
 
 app.use(express.static(dir));
 app.get('/', (request, response) => {
-  var q, url
-  q = request.query;
-  if (typeof q.url !== 'undefined'){
+  let url;
+  const q = request.query;
+  if (typeof q.url !== 'undefined') {
     url = decodeURIComponent(q.url);
-    downloader.fetch(url,  './downloads', './public')
-    .then(fileName=>{
-      const result = JSON.stringify({status:'ok', data:fileName});
-      logger.info(fileName + ' succesfully published')
-      response.send(result);
-    })
-    .catch((err) => {
-      const result = JSON.stringify({status:'fail', data:err.message});
-      logger.error(err.message);
-      response.send(result);
-    });
+    downloader.fetch(url, './downloads', './public')
+        .then((fileName) => {
+          const result = JSON.stringify({status: 'ok', data: fileName});
+          logger.info(fileName + ' succesfully published');
+          response.send(result);
+        })
+        .catch((err) => {
+          const result = JSON.stringify({status: 'fail', data: err.message});
+          logger.error(err.message);
+          response.send(result);
+        });
   } else {
     response.send('hello');
   }

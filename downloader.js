@@ -15,7 +15,7 @@ const downloadImage = (url, dest) => {
     download.image({rejectUnauthorized: false, url, dest,
       headers: {'User-Agent': userAgent}})
         .then(({filename, image}) => {
-          logger.info('File saved to ' +  filename);
+          logger.info('File saved to ' + filename);
           resolve(filename);
         })
         .catch((err) => {
