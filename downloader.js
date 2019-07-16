@@ -33,7 +33,7 @@ const getMimeType = (url) => {
       if (err) {
         reject(err);
       } else {
-        const mimeType = res.headers['content-type'];
+        const mimeType = res.headers['content-type'].split(';')[0];
         logger.info(mimeType);
         resolve({url, mimeType});
       }
