@@ -20,8 +20,9 @@ app.get('/', (request, response) => {
           response.send(result);
         })
         .catch((err) => {
-          const result = JSON.stringify({status: 'fail', data: err.message});
-          logger.error(err.message);
+          const errObject = JSON.stringify(err, Object.getOwnPropertyNames(err));
+          const result = JSON.stringify({status: 'fail', data: errObject});
+          logger.error(errObject);
           response.send(result);
         });
   } else {
