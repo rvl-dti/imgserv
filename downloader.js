@@ -8,6 +8,13 @@ const jimp = require('jimp');
 const userAgent = 'Chrome/74.0.3729.169 Safari/537.36';
 const maxWidth = 640;
 
+const patchUrl = (url)=>{
+  if (url.indexOf('lh3.googleusercontent.com') > -1) {
+    return url.split('=')[0];
+  }
+  return url;
+}
+
 const extractFileName = (fullName) => fullName.split('/').pop();
 
 const downloadImage = (url, dest) => {
@@ -43,13 +50,13 @@ const getMimeType = (url) => {
 
 const fetch = (url, dFolder, pFolder) => {
   return new Promise((resolve, reject) => {
-    getMimeType(url)
+    getMimeType(patchUrl(url))
         .then((res) => {
           const type = res.mimeType.split('/')[1];
           if (/^image/.test(res.mimeType)) {
-            fileName = md5(url) + '.' + type;
+            fileName = md5(res.url) + '.' + type;
             fullName = dFolder + '/' + fileName;
-            return downloadImage(url, fullName);
+            return downloadImage(res.url, fullName);
           } else {
             throw new Error('not an image');
           }
