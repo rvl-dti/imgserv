@@ -135,8 +135,7 @@ const convertToJpg = (arg) => {
         });
         break;
       default:
-        reject(new Error({message: 'not able to process ' + type,
-          code: 'UNKONWNTYPE'}));
+        reject(new Error('not able to process ' + type));
     }
   });
 };
