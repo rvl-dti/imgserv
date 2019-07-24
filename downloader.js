@@ -135,6 +135,7 @@ const convertToJpg = (arg) => {
           } else {
             res
                 .quality(100) // set JPEG quality
+                .background(0xFFFFFFFF)
                 .write(outputFile, () => {
                   resolve(outputFile);
                 });
