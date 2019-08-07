@@ -8,12 +8,12 @@ const jimp = require('jimp');
 const userAgent = 'Chrome/74.0.3729.169 Safari/537.36';
 const maxWidth = 640;
 
-const patchUrl = (url)=>{
+const patchUrl = (url) => {
   if (url.indexOf('lh3.googleusercontent.com') > -1) {
     return url.split('=')[0];
   }
   return url;
-}
+};
 
 const extractFileName = (fullName) => fullName.split('/').pop();
 
