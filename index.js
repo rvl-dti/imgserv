@@ -13,7 +13,7 @@ app.use(express.static(dir));
 app.get('/generate', (request, response) => {
   const q = request.query;
   if (typeof q.text !== 'undefined') {
-    generate.imageText(q.text, './public')
+    generate.imageText(decodeURIComponent(q.text), './public')
         .then((fileName) => {
           const result = JSON.stringify({status: 'ok', data: fileName});
           response.send(result);
