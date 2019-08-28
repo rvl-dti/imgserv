@@ -1,19 +1,24 @@
 const express = require('express');
 const path = require('path');
+const dotenv = require('dotenv');
 const downloader = require('./downloader');
 const generate = require('./generate');
 const logger = require('./log.js');
 const app = express();
 const port = 3000;
 
-const dir = path.join(__dirname, 'public');
+dotenv.config();
+const downloadDir = process.env.DOWNLOAD_FOLDER;
+const publicDir = process.env.PUBLIC_FOLDER;
 
+const dir = publicDir.substr(0, 1) == '.'?
+  path.join(__dirname, publicDir):publicDir;
 app.use(express.static(dir));
 
 app.get('/generate', (request, response) => {
   const q = request.query;
   if (typeof q.text !== 'undefined') {
-    generate.imageText(decodeURIComponent(q.text), './public')
+    generate.imageText(decodeURIComponent(q.text), publicDir)
         .then((fileName) => {
           const result = JSON.stringify({status: 'ok', data: fileName});
           response.send(result);
@@ -34,7 +39,7 @@ app.get('/', (request, response) => {
   const q = request.query;
   if (typeof q.url !== 'undefined') {
     url = decodeURIComponent(q.url);
-    downloader.fetch(url, './downloads', './public')
+    downloader.fetch(url, downloadDir, publicDir)
         .then((fileName) => {
           const result = JSON.stringify({status: 'ok', data: fileName});
           logger.info(fileName + ' succesfully published');
