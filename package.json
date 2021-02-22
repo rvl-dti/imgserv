@@ -9,19 +9,19 @@
   "author": "yyk@mail.ru",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "image-downloader": "^3.5.0",
+    "image-downloader": "^3.6.0",
     "image-size": "^0.7.5",
-    "jimp": "^0.6.8",
-    "md5": "^2.2.1",
-    "webp-converter": "^2.2.3",
+    "jimp": "^0.16.1",
+    "md5": "^2.3.0",
+    "webp-converter": "^2.3.3",
     "winston": "^3.2.1"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-config-google": "^0.13.0",
-    "mocha": "^6.2.2"
+    "mocha": "^6.2.3"
   }
 }
