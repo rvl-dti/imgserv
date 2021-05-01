@@ -40,8 +40,14 @@ const getMimeType = (url) => {
       if (err) {
         reject(err);
       } else {
-        const mimeType = res.headers['content-type'].split(';')[0];
-        logger.info(mimeType);
+        let mimeType = res.headers['content-type'].split(';')[0];
+        const arr = mimeType.split('/');
+        if (arr[0] == 'image') {
+          const ext = url.split('.').slice(-1)[0];
+          if (arr[1] !== ext) {
+            if (ext == 'webp') mimeType = 'image/webp';
+          }
+        }
         resolve({url, mimeType});
       }
     });
@@ -117,12 +123,11 @@ const convertToJpg = (arg) => {
        + fileName.split('.')[0] + '.jpg';
     switch (type) {
       case 'webp':
-        webp.dwebp(arg.fullName, outputFile, '-o', function(status, error) {
-          if (error) reject(error);
-          if (status == 100) {
-            resolve(outputFile);
-          } else reject(status);
-        });
+        webp.dwebp(arg.fullName, outputFile, '-o')
+            .then((status) => {
+              resolve(outputFile);
+            })
+            .catch((e) => reject(e));
         break;
       case 'png':
       case 'gif':
