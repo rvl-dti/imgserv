@@ -38,7 +38,23 @@ app.get('/', (request, response) => {
   let url;
   const q = request.query;
   if (typeof q.url !== 'undefined') {
-    url = decodeURIComponent(q.url);
+    try {
+      url = decodeURIComponent(q.url);
+    } catch(e) {
+      const exts = ['.jpeg', '.png', '.webp', '.gif', '.bmp', '.tiff', '.jpg'];
+      const xs = exts.map(ext=>{
+        return (new RegExp(ext)).test(q.url)
+      });
+      if (xs.reduce((a, b)=>a || b)) {
+        let idx;
+        xs.some((x, i)=>{idx = i; return x})
+        const ext = exts[idx]
+        const arr = q.url.split(ext);
+        url = [arr[0], ext].join('')
+      } else {
+        throw new Error(e)
+      }
+    }
     downloader.fetch(url, downloadDir, publicDir)
         .then((fileName) => {
           const result = JSON.stringify({status: 'ok', data: fileName});
